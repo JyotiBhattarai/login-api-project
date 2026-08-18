@@ -16,7 +16,7 @@ Users can create an account, log in with their credentials, and access a protect
 - Node.js
 - Express
 - express-session
-- HTML, CSS, JavaScript (vanilla frontend)
+- HTML, CSS, JavaScript 
 - JSON file storage for user data
 
 ## Getting Started
