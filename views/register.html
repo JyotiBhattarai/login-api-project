@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login Page</title>
+    <title>Register Page</title>
 </head>
 
 <body>
 
-    <h1>Login Page</h1>
+    <h1>Register Page</h1>
 
-    <form id="loginForm">
+    <form id="registerForm">
+
+        <label>Username:</label><br>
+
+        <input
+            type="text"
+            id="username"
+            required
+            placeholder="Choose a username"
+        >
+
+        <br><br>
 
         <label>Email:</label><br>
 
@@ -32,30 +43,38 @@
 
         <br><br>
 
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
 
     </form>
 
     <p id="message"></p>
 
     <p>
-        Don't have an account?
-        <a href="/register">Register</a>
+        Already have an account?
+        <a href="/">Log in</a>
     </p>
 
 
     <script>
 
-        const loginForm = document.getElementById("loginForm");
+        const registerForm = document.getElementById("registerForm");
 
-        loginForm.addEventListener("submit", async function(event) {
+        registerForm.addEventListener("submit", async function(event) {
 
             event.preventDefault();
 
+            const username = document.getElementById("username").value.trim();
             const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value;
 
             const message = document.getElementById("message");
+
+            // Username validation
+            if (username.length === 0) {
+                message.innerText =
+                    "Username is required";
+                return;
+            }
 
             // Email validation
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -73,8 +92,8 @@
                 return;
             }
 
-            // Call Login API
-            const response = await fetch("/api/login", {
+            // Call Register API
+            const response = await fetch("/api/register", {
 
                 method: "POST",
 
@@ -83,6 +102,7 @@
                 },
 
                 body: JSON.stringify({
+                    username: username,
                     email: email,
                     password: password
                 })
@@ -92,7 +112,7 @@
 
             if (data.success) {
 
-                window.location.href = "/dashboard";
+                window.location.href = "/";
 
             } else {
 

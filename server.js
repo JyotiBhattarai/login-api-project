@@ -23,6 +23,7 @@ let users = JSON.parse(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 app.use(
     session({
         secret: "my-secret-key",
@@ -134,6 +135,26 @@ app.post("/api/login", (req, res) => {
         success: true,
         message: "Login successful"
     });
+});
+
+// ==========================
+// GET CURRENT USER
+// ==========================
+
+app.get("/api/me", (req, res) => {
+
+    if (!req.session.user) {
+        return res.json({
+            success: false,
+            message: "Not logged in"
+        });
+    }
+
+    res.json({
+        success: true,
+        user: req.session.user
+    });
+
 });
 
 // ==========================
