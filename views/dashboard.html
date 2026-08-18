@@ -10,9 +10,35 @@
 
     <p>You have successfully logged in!</p>
 
+    <p id="userEmail"></p>
+
     <a href="/logout">
         <button>Logout</button>
     </a>
+
+    <script>
+
+        async function loadUser() {
+
+            const response = await fetch("/api/me");
+            const data = await response.json();
+
+            if (data.success) {
+
+                document.getElementById("userEmail").innerText =
+                    "Logged in as: " + data.user.email;
+
+            } else {
+
+                window.location.href = "/";
+
+            }
+
+        }
+
+        loadUser();
+
+    </script>
 
 </body>
 </html>
